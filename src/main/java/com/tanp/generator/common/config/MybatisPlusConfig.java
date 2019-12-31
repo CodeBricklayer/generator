@@ -72,6 +72,7 @@ public class MybatisPlusConfig {
     //设置mapper.xml的位置路径
     Resource[] resources = new PathMatchingResourcePatternResolver()
         .getResources("classpath:mapper/*.xml");
+    factoryBean.setPlugins(this.paginationInterceptor());
     factoryBean.setMapperLocations(resources);
     return factoryBean.getObject();
   }
