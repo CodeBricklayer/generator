@@ -1,6 +1,6 @@
 #端口号
 server:
-  port: 8082
+  port: 8083
 spring:
   profiles:
     active: @spring.active@

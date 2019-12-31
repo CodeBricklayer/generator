@@ -5,7 +5,7 @@ package com.tanp.generator.entity;
  * @date 2019/12/31 14:08
  * @description 列的属性
  */
-public class ColumnEntity {
+public class Column {
 
   /**
    * 列名

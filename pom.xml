@@ -110,4 +110,25 @@
       </plugin>
     </plugins>
   </build>
+
+  <profiles>
+    <profile>
+      <id>dev</id>
+      <properties>
+        <spring.active>dev</spring.active>
+      </properties>
+    </profile>
+    <profile>
+      <id>test</id>
+      <properties>
+        <spring.active>test</spring.active>
+      </properties>
+    </profile>
+    <profile>
+      <id>produce</id>
+      <properties>
+        <spring.active>produce</spring.active>
+      </properties>
+    </profile>
+  </profiles>
 </project>
