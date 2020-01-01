@@ -16,7 +16,7 @@ public class DynamicDataSource extends AbstractRoutingDataSource {
   private static byte[] lock = new byte[0];
 
   /**
-   * 重写setTargetDataSources，通过入参tartgetDataSources进行数据源的添加
+   * 重写setTargetDataSources，通过入参targetDataSources进行数据源的添加
    */
   @Override
   public void setTargetDataSources(Map<Object, Object> targetDataSources) {
