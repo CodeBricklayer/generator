@@ -6,9 +6,11 @@ import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.tanp.generator.common.constant.DataSourceType;
 import com.tanp.generator.common.multidatasource.DruidProperties;
 import com.tanp.generator.common.multidatasource.DynamicDataSource;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import javax.sql.DataSource;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
@@ -33,6 +35,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableTransactionManagement
 @MapperScan(basePackages = "com.tanp.generator.mapper")
+@Slf4j
 public class MybatisPlusConfig {
 
   @Bean("firstDataSource")
@@ -46,7 +49,7 @@ public class MybatisPlusConfig {
   @Bean("secondDataSource")
   @Primary
   @ConfigurationProperties(prefix = "spring.datasource.druid.second")
-  @ConditionalOnProperty(prefix = "spring.datasource.druid.second",name = "enabled", havingValue = "true")
+  @ConditionalOnProperty(prefix = "spring.datasource.druid.second", name = "enabled", havingValue = "true")
   public DataSource secondDataSource(DruidProperties druidProperties) {
     DruidDataSource dataSource = DruidDataSourceBuilder.create().build();
     return druidProperties.dataSource(dataSource);
@@ -58,7 +61,14 @@ public class MybatisPlusConfig {
     Map<Object, Object> map = new HashMap<>();
     map.put(DataSourceType.FIRST.getDb(), firstDataSource);
     map.put(DataSourceType.SECOND.getDb(), secondDataSource);
-
+    try {
+      firstDataSource.getConnection();
+      log.info("firstDataSource连接成功:{}" + firstDataSource);
+      secondDataSource.getConnection();
+      log.info("secondDataSource连接成功:{}" + secondDataSource);
+    } catch (SQLException e) {
+      log.error("数据库连接异常：{}", e);
+    }
     DynamicDataSource dynamicDataSource = new DynamicDataSource();
     dynamicDataSource.setTargetDataSources(map);
     dynamicDataSource.setDefaultTargetDataSource(firstDataSource);
