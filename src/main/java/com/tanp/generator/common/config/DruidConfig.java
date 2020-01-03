@@ -147,7 +147,8 @@ public class DruidConfig {
     // 添加过滤规则.
     filterRegistrationBean.addUrlPatterns("/*");
     // 添加不需要忽略的格式信息.
-    filterRegistrationBean.addInitParameter("exclusions", "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*");
+    filterRegistrationBean
+        .addInitParameter("exclusions", "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*");
     return filterRegistrationBean;
   }
 
@@ -188,6 +189,7 @@ public class DruidConfig {
 
   /**
    * 分页插件
+   *
    * @return
    */
   @Bean
@@ -206,7 +208,13 @@ public class DruidConfig {
     return new MybatisConfiguration();
   }
 
-  DatabaseSource getDataBaseSource(){
+  /**
+   * 使主数据源保持一致
+   *
+   * @return
+   */
+  @Bean
+  public DatabaseSource getDataBaseSource() {
     DatabaseSource databaseSource = new DatabaseSource();
     databaseSource.setDatabaseSourceName("mainDataSource");
     databaseSource.setUrl(url);

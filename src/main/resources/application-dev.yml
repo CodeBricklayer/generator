@@ -3,6 +3,6 @@ spring:
   datasource:
     druid:
         url: jdbc:mysql://118.89.36.191:3306/classmanager?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=CTT #自己的数据库名称
-        username: root
-        password: root
+        username:
+        password:
         driver-class-name: com.mysql.jdbc.Driver

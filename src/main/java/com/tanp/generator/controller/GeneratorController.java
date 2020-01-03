@@ -4,12 +4,9 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tanp.generator.common.config.DruidConfig;
 import com.tanp.generator.common.multidatasource.DynamicDataSource;
-import com.tanp.generator.entity.DatabaseSource;
 import com.tanp.generator.entity.Table;
-import com.tanp.generator.mapper.DatabaseSourceMapper;
 import com.tanp.generator.service.DatabaseSourceService;
 import com.tanp.generator.service.impl.GeneratorServiceImpl;
-import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -48,8 +45,7 @@ public class GeneratorController {
       @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize,
       @RequestParam(value = "tableName", required = false) String tableName) {
     Page<Table> page = new Page<>(pageNumber, pageSize);
-    List<DatabaseSource> databaseSources = databaseSourceService.list();
-    IPage<Table> tableList = generatorCode.queryList(databaseSources.get(0),page, tableName);
+    IPage<Table> tableList = generatorCode.queryList(page, tableName);
     return tableList;
   }
 
