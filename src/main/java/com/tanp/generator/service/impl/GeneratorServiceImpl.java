@@ -2,6 +2,8 @@ package com.tanp.generator.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.tanp.generator.common.annotation.DataSource;
+import com.tanp.generator.entity.DatabaseSource;
 import com.tanp.generator.entity.Table;
 import com.tanp.generator.mapper.GeneratorMapper;
 import com.tanp.generator.service.GeneratorService;
@@ -24,7 +26,8 @@ public class GeneratorServiceImpl extends ServiceImpl<GeneratorMapper, Table> im
    * 查询表列表
    */
   @Override
-  public IPage<Table> queryList(IPage page,String tableName) {
+  @DataSource
+  public IPage<Table> queryList(@DataSource DatabaseSource dataSource,IPage page,String tableName) {
     return page.setRecords(generatorMapper.queryList(page,tableName));
   }
 

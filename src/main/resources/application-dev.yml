@@ -2,15 +2,7 @@
 spring:
   datasource:
     druid:
-      # 数据源1
-      first:
         url: jdbc:mysql://118.89.36.191:3306/classmanager?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=CTT #自己的数据库名称
         username: root
         password: root
-      # 数据源2
-      second:
-        # 数据源开关/默认关闭
-        enabled: true
-        url: jdbc:mysql://127.0.0.1:3306/mmall?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=CTT #自己的数据库名称
-        username: root
-        password: 123456
+        driver-class-name: com.mysql.jdbc.Driver

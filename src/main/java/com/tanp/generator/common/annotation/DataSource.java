@@ -1,4 +1,4 @@
-package com.tanp.generator.common.constant;
+package com.tanp.generator.common.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,12 +7,13 @@ import java.lang.annotation.Target;
 
 /**
  * @author CodeBricklayer
- * @date 2019/12/31 11:46
- * @description 自定义注解，用于类或方法上，优先级：方法>类
+ * @Target 注解可以作用在参数或者方法上
+ * @Retention 注解生命周期作用范围
+ * @date 2020/1/3 16:30
+ * @description TODO
  */
-@Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.METHOD, ElementType.PARAMETER})
 public @interface DataSource {
 
-  DataSourceType value() default DataSourceType.FIRST;
 }

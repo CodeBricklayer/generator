@@ -1,6 +1,8 @@
 package com.tanp.generator.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.tanp.generator.common.annotation.DataSource;
+import com.tanp.generator.entity.DatabaseSource;
 import com.tanp.generator.entity.Table;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +14,7 @@ import java.util.Map;
 
 public interface GeneratorService {
 
-  IPage<Table> queryList(IPage page,String tableName);
+  IPage<Table> queryList(@DataSource DatabaseSource databaseSource, IPage page,String tableName);
 
   Map<String, String> queryTable(String tableName);
 
