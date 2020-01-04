@@ -111,16 +111,16 @@ public class DynamicDataSource extends AbstractRoutingDataSource {
    * 删除数据源
    */
   public boolean delDataSources(String dataSourceId) {
-    Map<Object, Object> dynamicTargetDataSources2 = this.dynamicTargetDataSources;
-    if (dynamicTargetDataSources2.containsKey(dataSourceId)) {
+    Map<Object, Object> dynamicTargetDataSources = this.dynamicTargetDataSources;
+    if (dynamicTargetDataSources.containsKey(dataSourceId)) {
       Set<DruidDataSource> druidDataSourceInstances = DruidDataSourceStatManager
           .getDruidDataSourceInstances();
       for (DruidDataSource l : druidDataSourceInstances) {
         if (dataSourceId.equals(l.getName())) {
-          dynamicTargetDataSources2.remove(dataSourceId);
+          dynamicTargetDataSources.remove(dataSourceId);
           DruidDataSourceStatManager.removeDataSource(l);
           // 将map赋值给父类的TargetDataSources
-          setTargetDataSources(dynamicTargetDataSources2);
+          setTargetDataSources(dynamicTargetDataSources);
           // 将TargetDataSources中的连接信息放入resolvedDataSources管理
           super.afterPropertiesSet();
           return true;
@@ -197,10 +197,10 @@ public class DynamicDataSource extends AbstractRoutingDataSource {
   public void createDataSourceWithCheck(DatabaseSource databaseSource) throws Exception {
     String databaseSourceName = databaseSource.getDatabaseSourceName();
     log.info("正在检查数据源：" + databaseSourceName);
-    Map<Object, Object> dynamicTargetDataSources2 = this.dynamicTargetDataSources;
-    if (dynamicTargetDataSources2.containsKey(databaseSourceName)) {
+    Map<Object, Object> dynamicTargetDataSources = this.dynamicTargetDataSources;
+    if (dynamicTargetDataSources.containsKey(databaseSourceName)) {
       log.info("数据源" + databaseSourceName + "之前已经创建，准备测试数据源是否正常...");
-      DruidDataSource druidDataSource = (DruidDataSource) dynamicTargetDataSources2
+      DruidDataSource druidDataSource = (DruidDataSource) dynamicTargetDataSources
           .get(databaseSourceName);
       boolean rightFlag = true;
       Connection connection = null;
